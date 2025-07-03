@@ -87,6 +87,50 @@
   }
 }
 
+/* Custom styles for formatted HTML content in chat messages */
+@layer components {
+  .chat-content h4,
+  .chat-content h5 {
+    @apply text-gray-100 font-semibold mb-2 mt-3;
+  }
+  
+  .chat-content h4 {
+    @apply text-lg;
+  }
+  
+  .chat-content h5 {
+    @apply text-base;
+  }
+  
+  .chat-content p {
+    @apply text-gray-100 mb-2 leading-relaxed;
+  }
+  
+  .chat-content strong {
+    @apply font-semibold text-white;
+  }
+  
+  .chat-content ul {
+    @apply text-gray-100 space-y-1 mb-2;
+  }
+  
+  .chat-content li {
+    @apply text-gray-100 leading-relaxed;
+  }
+  
+  .chat-content br {
+    @apply block;
+  }
+  
+  .chat-content *:first-child {
+    @apply mt-0;
+  }
+  
+  .chat-content *:last-child {
+    @apply mb-0;
+  }
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;

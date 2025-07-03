@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a modern web-based chatbot application featuring "Sudaislofar," a friendly AI companion that communicates in Hinglish (Hindi-English mix). The application is built as a full-stack TypeScript project with a React frontend and Express backend, featuring a sophisticated UI component system and database integration capabilities.
+This is a modern web-based chatbot application featuring "Sudaislofar," a friendly AI companion powered by Google's Gemini AI that communicates in Hinglish (Hindi-English mix). The application is built as a full-stack TypeScript project with a React frontend and Express backend, featuring real AI intelligence, HTML-formatted responses, and a responsive two-column layout with sidebar navigation.
 
 ## System Architecture
 
@@ -32,10 +32,11 @@ This is a modern web-based chatbot application featuring "Sudaislofar," a friend
 ## Key Components
 
 ### Chatbot Core Features
-- **Personality**: Friendly, casual Hinglish communication style
-- **Response System**: Comprehensive predefined response database with categorized replies
-- **UI Elements**: Dark-themed chat interface with message bubbles and typing indicators
-- **Animations**: Smooth fade-in animations for messages and auto-scroll functionality
+- **AI Intelligence**: Powered by Google's Gemini 2.5 Flash model for intelligent responses
+- **Personality**: Friendly, casual Hinglish communication style maintained through AI prompting
+- **HTML Formatting**: AI generates properly formatted HTML responses with headings, bold text, and lists
+- **UI Layout**: Two-column responsive design with sidebar navigation and expanded chat area
+- **Response Quality**: Can answer any question, write poetry, solve problems, and engage naturally
 
 ### UI Component System
 - **Design System**: Complete shadcn/ui component library
@@ -52,20 +53,20 @@ This is a modern web-based chatbot application featuring "Sudaislofar," a friend
 
 ## Data Flow
 
-1. **User Interaction**: User types message in chat input
-2. **Message Processing**: Frontend processes input and adds to message state
-3. **Response Generation**: Local response matching logic generates appropriate Hinglish replies
-4. **UI Updates**: Messages appear with animations, auto-scroll to latest
-5. **Session Persistence**: User sessions managed via PostgreSQL (when implemented)
+1. **User Interaction**: User types message in expanded chat input area
+2. **Message Processing**: Frontend sends message to backend API endpoint
+3. **AI Processing**: Gemini AI generates intelligent Hinglish response with HTML formatting
+4. **Response Delivery**: Backend returns formatted HTML response to frontend
+5. **UI Rendering**: Messages displayed with proper HTML formatting, animations, and auto-scroll
 
 ## External Dependencies
 
 ### Core Dependencies
-- **@neondatabase/serverless**: Serverless PostgreSQL connection
+- **@google/genai**: Google Gemini AI integration for intelligent responses
 - **@tanstack/react-query**: Server state management
-- **drizzle-orm**: Type-safe database queries
-- **express**: Web application framework
-- **react**: UI library with hooks
+- **drizzle-orm**: Type-safe database queries (configured but not actively used)
+- **express**: Web application framework with API endpoints
+- **react**: UI library with hooks and HTML rendering support
 
 ### UI Dependencies
 - **@radix-ui/***: Accessible UI primitives (20+ components)
@@ -100,7 +101,11 @@ This is a modern web-based chatbot application featuring "Sudaislofar," a friend
 
 ```
 Changelog:
-- July 03, 2025. Initial setup
+- July 03, 2025. Initial setup with predefined responses
+- July 03, 2025. Integrated Google Gemini AI for intelligent responses
+- July 03, 2025. Added HTML formatting support for rich responses
+- July 03, 2025. Implemented two-column layout with sidebar navigation
+- July 03, 2025. Enhanced chat interface with expanded message display
 ```
 
 ## User Preferences

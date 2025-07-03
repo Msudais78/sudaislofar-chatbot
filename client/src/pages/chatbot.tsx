@@ -92,12 +92,48 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#1a1a1a' }}>
-      {/* Chat Container */}
-      <div className="w-full max-w-md h-[600px] rounded-2xl shadow-2xl overflow-hidden flex flex-col" style={{ backgroundColor: '#2c2c2c' }}>
+    <div className="min-h-screen flex" style={{ backgroundColor: '#1a1a1a' }}>
+      {/* Sidebar */}
+      <div className="w-80 bg-gray-800 border-r border-gray-700 p-6 hidden lg:block">
+        <div className="mb-8">
+          <div className="flex items-center mb-4">
+            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-3">
+              <span className="text-white font-bold text-xl">S</span>
+            </div>
+            <div>
+              <h2 className="text-white font-bold text-xl">Sudaislofar</h2>
+              <p className="text-gray-400 text-sm">AI Powered Hinglish Assistant</p>
+            </div>
+          </div>
+        </div>
         
+        <div className="space-y-4">
+          <div className="bg-gray-700 rounded-lg p-4">
+            <h3 className="text-white font-medium mb-2">Features</h3>
+            <ul className="text-gray-300 text-sm space-y-1">
+              <li>• Answer any question</li>
+              <li>• Write poetry & stories</li>
+              <li>• Solve math problems</li>
+              <li>• General assistance</li>
+              <li>• Friendly Hinglish chat</li>
+            </ul>
+          </div>
+          
+          <div className="bg-gray-700 rounded-lg p-4">
+            <h3 className="text-white font-medium mb-2">Tips</h3>
+            <ul className="text-gray-300 text-sm space-y-1">
+              <li>• Ask in Hindi or English</li>
+              <li>• Be specific for better answers</li>
+              <li>• Try creative requests</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex items-center">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex items-center lg:hidden">
           <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-3">
             <span className="text-blue-600 font-semibold text-lg">S</span>
           </div>
@@ -110,69 +146,75 @@ export default function Chatbot() {
           </div>
         </div>
 
-        {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth">
-          {messages.map((message) => (
-            <div 
-              key={message.id} 
-              className={`flex items-start space-x-2 animate-fade-in ${
-                message.isUser ? 'flex-row-reverse space-x-reverse' : ''
-              }`}
-            >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                message.isUser ? 'bg-blue-600' : 'bg-gray-600'
-              }`}>
-                <span className="text-white text-sm font-medium">
-                  {message.isUser ? 'You' : 'S'}
-                </span>
-              </div>
-              <div className={`px-4 py-3 rounded-2xl max-w-xs leading-relaxed ${
-                message.isUser 
-                  ? 'bg-blue-600 text-white rounded-tr-md' 
-                  : 'bg-gray-600 text-gray-100 rounded-tl-md'
-              }`}>
-                {message.content}
-              </div>
-            </div>
-          ))}
-
-          {/* Typing Indicator */}
-          {isTyping && (
-            <div className="flex items-start space-x-2">
-              <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white text-sm font-medium">S</span>
-              </div>
-              <div className="bg-gray-600 text-gray-300 px-4 py-3 rounded-2xl rounded-tl-md">
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots-delay-1"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots-delay-2"></div>
+        {/* Chat Container */}
+        <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full" style={{ backgroundColor: '#2c2c2c' }}>
+          {/* Messages Container */}
+          <div className="flex-1 overflow-y-auto p-6 space-y-4 scroll-smooth">
+            {messages.map((message) => (
+              <div 
+                key={message.id} 
+                className={`flex items-start space-x-3 animate-fade-in ${
+                  message.isUser ? 'flex-row-reverse space-x-reverse' : ''
+                }`}
+              >
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  message.isUser ? 'bg-blue-600' : 'bg-gray-600'
+                }`}>
+                  <span className="text-white text-sm font-medium">
+                    {message.isUser ? 'You' : 'S'}
+                  </span>
+                </div>
+                <div className={`px-4 py-3 rounded-2xl max-w-2xl leading-relaxed ${
+                  message.isUser 
+                    ? 'bg-blue-600 text-white rounded-tr-md' 
+                    : 'bg-gray-600 text-gray-100 rounded-tl-md'
+                }`}>
+                  <div 
+                    dangerouslySetInnerHTML={{ __html: message.content }}
+                    className="chat-content"
+                  />
                 </div>
               </div>
+            ))}
+
+            {/* Typing Indicator */}
+            {isTyping && (
+              <div className="flex items-start space-x-3">
+                <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-sm font-medium">S</span>
+                </div>
+                <div className="bg-gray-600 text-gray-300 px-4 py-3 rounded-2xl rounded-tl-md">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots"></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots-delay-1"></div>
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots-delay-2"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input Area */}
+          <div className="p-6 border-t border-gray-700">
+            <div className="flex space-x-3">
+              <Input
+                type="text"
+                value={currentMessage}
+                onChange={(e) => setCurrentMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Kuch bhi pucho, main yahan hoon..."
+                className="flex-1 bg-gray-700 text-gray-100 border-gray-600 focus:border-blue-500 focus:ring-blue-500 placeholder-gray-400"
+                maxLength={500}
+              />
+              <Button 
+                onClick={sendMessage}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 font-medium transition-colors duration-200"
+              >
+                Send
+              </Button>
             </div>
-          )}
-
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input Area */}
-        <div className="p-4 border-t border-gray-700">
-          <div className="flex space-x-3">
-            <Input
-              type="text"
-              value={currentMessage}
-              onChange={(e) => setCurrentMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Kuch bhi pucho, main yahan hoon..."
-              className="flex-1 bg-gray-700 text-gray-100 border-gray-600 focus:border-blue-500 focus:ring-blue-500 placeholder-gray-400"
-              maxLength={200}
-            />
-            <Button 
-              onClick={sendMessage}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 font-medium transition-colors duration-200"
-            >
-              Send
-            </Button>
           </div>
         </div>
       </div>
