@@ -91,35 +91,59 @@
 @layer components {
   .chat-content h4,
   .chat-content h5 {
-    @apply text-gray-100 font-semibold mb-2 mt-3;
+    @apply text-white font-bold mb-3 mt-4;
   }
   
   .chat-content h4 {
-    @apply text-lg;
+    @apply text-xl border-b border-gray-600 pb-2;
   }
   
   .chat-content h5 {
-    @apply text-base;
+    @apply text-lg;
   }
   
   .chat-content p {
-    @apply text-gray-100 mb-2 leading-relaxed;
+    @apply text-gray-100 mb-3 leading-relaxed;
   }
   
   .chat-content strong {
-    @apply font-semibold text-white;
+    @apply font-bold text-white;
   }
   
   .chat-content ul {
-    @apply text-gray-100 space-y-1 mb-2;
+    @apply text-gray-100 space-y-2 mb-4 ml-4;
   }
   
   .chat-content li {
-    @apply text-gray-100 leading-relaxed;
+    @apply text-gray-100 leading-relaxed list-disc;
+  }
+  
+  .chat-content ol {
+    @apply text-gray-100 space-y-2 mb-4 ml-4;
+  }
+  
+  .chat-content ol li {
+    @apply text-gray-100 leading-relaxed list-decimal;
   }
   
   .chat-content br {
     @apply block;
+  }
+  
+  .chat-content code {
+    @apply bg-gray-700 text-blue-300 px-1 py-0.5 rounded text-sm font-mono;
+  }
+  
+  .chat-content pre {
+    @apply bg-gray-900 border border-gray-700 rounded-lg p-4 overflow-x-auto mb-4;
+  }
+  
+  .chat-content pre code {
+    @apply bg-transparent text-gray-100 px-0 py-0;
+  }
+  
+  .chat-content blockquote {
+    @apply border-l-4 border-blue-500 pl-4 italic text-gray-300 my-4;
   }
   
   .chat-content *:first-child {
@@ -128,6 +152,33 @@
   
   .chat-content *:last-child {
     @apply mb-0;
+  }
+
+  /* Glow effects for professional look */
+  .glow-on-hover {
+    @apply transition-all duration-300;
+  }
+  
+  .glow-on-hover:hover {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Smooth scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(75, 85, 99, 0.5);
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(75, 85, 99, 0.8);
   }
 }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Send, Plus, MessageSquare } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -10,14 +11,7 @@ interface Message {
 }
 
 export default function Chatbot() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      content: 'Salaam! Main Sudaislofar hoon. Chalo gupshup karte hain! Jo bhi poochna hai, main answer kar dunga. Aaj kya haal chaal hai?',
-      isUser: false,
-      timestamp: new Date()
-    }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [currentMessage, setCurrentMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -91,128 +85,178 @@ export default function Chatbot() {
     }
   };
 
+  // Create Ninja SVG Logo component
+  const NinjaLogo = ({ size = 48, className = "text-blue-400" }: { size?: number; className?: string }) => (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 48 48" 
+      className={className}
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="24" cy="24" r="20" fill="currentColor" opacity="0.1"/>
+      <path 
+        d="M24 8c-8.84 0-16 7.16-16 16s7.16 16 16 16 16-7.16 16-16S32.84 8 24 8zm-6 20c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm12 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" 
+        fill="currentColor"
+      />
+      <path 
+        d="M20 18c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm12 0c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2z" 
+        fill="currentColor"
+      />
+      <path 
+        d="M24 32c-2.21 0-4-1.79-4-4h8c0 2.21-1.79 4-4 4z" 
+        fill="currentColor" 
+        opacity="0.6"
+      />
+    </svg>
+  );
+
   return (
     <div className="min-h-screen flex" style={{ backgroundColor: '#1a1a1a' }}>
-      {/* Sidebar */}
-      <div className="w-80 bg-gray-800 border-r border-gray-700 p-6 hidden lg:block">
-        <div className="mb-8">
-          <div className="flex items-center mb-4">
-            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-3">
-              <span className="text-white font-bold text-xl">S</span>
-            </div>
-            <div>
-              <h2 className="text-white font-bold text-xl">Sudaislofar</h2>
-              <p className="text-gray-400 text-sm">AI Powered Hinglish Assistant</p>
-            </div>
-          </div>
+      {/* Left Sidebar */}
+      <div className="w-64 flex flex-col" style={{ backgroundColor: '#202123' }}>
+        {/* New Chat Button */}
+        <div className="p-3">
+          <Button 
+            className="w-full flex items-center justify-center space-x-2 bg-transparent border border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-gray-500 transition-colors duration-200 rounded-lg py-3"
+          >
+            <Plus size={16} />
+            <span>New Chat</span>
+          </Button>
         </div>
         
-        <div className="space-y-4">
-          <div className="bg-gray-700 rounded-lg p-4">
-            <h3 className="text-white font-medium mb-2">Features</h3>
-            <ul className="text-gray-300 text-sm space-y-1">
-              <li>• Answer any question</li>
-              <li>• Write poetry & stories</li>
-              <li>• Solve math problems</li>
-              <li>• General assistance</li>
-              <li>• Friendly Hinglish chat</li>
-            </ul>
-          </div>
-          
-          <div className="bg-gray-700 rounded-lg p-4">
-            <h3 className="text-white font-medium mb-2">Tips</h3>
-            <ul className="text-gray-300 text-sm space-y-1">
-              <li>• Ask in Hindi or English</li>
-              <li>• Be specific for better answers</li>
-              <li>• Try creative requests</li>
-            </ul>
+        {/* Chat History */}
+        <div className="flex-1 px-3 pb-3">
+          <div className="text-gray-400 text-xs font-medium mb-3 px-3">CHAT HISTORY</div>
+          <div className="space-y-2">
+            {['Previous conversation 1', 'Previous conversation 2', 'Previous conversation 3'].map((item, index) => (
+              <div 
+                key={index}
+                className="flex items-center space-x-2 p-2 text-gray-300 hover:bg-gray-700 rounded-lg cursor-pointer transition-colors duration-150"
+              >
+                <MessageSquare size={14} />
+                <span className="text-sm truncate">{item}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex items-center lg:hidden">
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-3">
-            <span className="text-blue-600 font-semibold text-lg">S</span>
-          </div>
-          <div>
-            <h1 className="text-white font-semibold text-lg">Sudaislofar</h1>
-            <p className="text-blue-100 text-sm">Aapka dost chatbot</p>
-          </div>
-          <div className="ml-auto">
-            <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-          </div>
-        </div>
-
-        {/* Chat Container */}
-        <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full" style={{ backgroundColor: '#2c2c2c' }}>
-          {/* Messages Container */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4 scroll-smooth">
-            {messages.map((message) => (
-              <div 
-                key={message.id} 
-                className={`flex items-start space-x-3 animate-fade-in ${
-                  message.isUser ? 'flex-row-reverse space-x-reverse' : ''
-                }`}
-              >
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  message.isUser ? 'bg-blue-600' : 'bg-gray-600'
-                }`}>
-                  <span className="text-white text-sm font-medium">
-                    {message.isUser ? 'You' : 'S'}
-                  </span>
+        {messages.length === 0 ? (
+          /* Beautiful Header for Empty Chat */
+          <div className="flex-1 flex flex-col items-center justify-center px-6">
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center mb-6">
+                <NinjaLogo />
+                <h1 className="text-4xl font-bold text-white ml-4">Sudaislofar</h1>
+              </div>
+              <p className="text-gray-400 text-lg mb-8">
+                Your intelligent Hinglish AI companion
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl">
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                  <h3 className="text-white font-medium mb-2">💬 Natural Conversations</h3>
+                  <p className="text-gray-400 text-sm">Chat in Hindi, English, or Hinglish - I understand it all</p>
                 </div>
-                <div className={`px-4 py-3 rounded-2xl max-w-2xl leading-relaxed ${
-                  message.isUser 
-                    ? 'bg-blue-600 text-white rounded-tr-md' 
-                    : 'bg-gray-600 text-gray-100 rounded-tl-md'
-                }`}>
-                  <div 
-                    dangerouslySetInnerHTML={{ __html: message.content }}
-                    className="chat-content"
-                  />
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                  <h3 className="text-white font-medium mb-2">🎯 Smart Assistance</h3>
+                  <p className="text-gray-400 text-sm">Get help with questions, creative writing, and problem-solving</p>
+                </div>
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                  <h3 className="text-white font-medium mb-2">✨ Rich Responses</h3>
+                  <p className="text-gray-400 text-sm">Beautifully formatted answers with headings, lists, and styling</p>
                 </div>
               </div>
-            ))}
-
-            {/* Typing Indicator */}
-            {isTyping && (
-              <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-sm font-medium">S</span>
-                </div>
-                <div className="bg-gray-600 text-gray-300 px-4 py-3 rounded-2xl rounded-tl-md">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots-delay-1"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots-delay-2"></div>
+            </div>
+          </div>
+        ) : (
+          /* Messages Container */
+          <div className="flex-1 overflow-y-auto custom-scrollbar">
+            <div className="max-w-4xl mx-auto px-6 py-6 space-y-6">
+              {messages.map((message) => (
+                <div 
+                  key={message.id} 
+                  className={`flex items-start space-x-4 animate-fade-in ${
+                    message.isUser ? 'flex-row-reverse space-x-reverse' : ''
+                  }`}
+                >
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    message.isUser 
+                      ? 'bg-blue-600' 
+                      : 'bg-gray-700 border border-gray-600'
+                  }`}>
+                    {message.isUser ? (
+                      <span className="text-white text-sm font-medium">You</span>
+                    ) : (
+                      <NinjaLogo size={24} className="text-blue-400" />
+                    )}
+                  </div>
+                  <div className={`max-w-3xl ${
+                    message.isUser ? 'text-right' : ''
+                  }`}>
+                    <div className={`inline-block px-6 py-4 rounded-2xl ${
+                      message.isUser 
+                        ? 'bg-blue-600 text-white' 
+                        : 'bg-gray-800 text-gray-100 border border-gray-700'
+                    }`}>
+                      <div 
+                        dangerouslySetInnerHTML={{ __html: message.content }}
+                        className="chat-content"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              ))}
 
-            <div ref={messagesEndRef} />
+              {/* Typing Indicator */}
+              {isTyping && (
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-gray-700 border border-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <NinjaLogo size={24} className="text-blue-400" />
+                  </div>
+                  <div className="bg-gray-800 border border-gray-700 text-gray-300 px-6 py-4 rounded-2xl">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots"></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots-delay-1"></div>
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce-dots-delay-2"></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
           </div>
+        )}
 
-          {/* Input Area */}
-          <div className="p-6 border-t border-gray-700">
-            <div className="flex space-x-3">
-              <Input
-                type="text"
-                value={currentMessage}
-                onChange={(e) => setCurrentMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Kuch bhi pucho, main yahan hoon..."
-                className="flex-1 bg-gray-700 text-gray-100 border-gray-600 focus:border-blue-500 focus:ring-blue-500 placeholder-gray-400"
-                maxLength={500}
-              />
+        {/* Input Area */}
+        <div className="border-t border-gray-700 bg-gray-900">
+          <div className="max-w-4xl mx-auto px-6 py-4">
+            <div className="flex items-end space-x-3">
+              <div className="flex-1 relative">
+                <Textarea
+                  value={currentMessage}
+                  onChange={(e) => setCurrentMessage(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      sendMessage();
+                    }
+                  }}
+                  placeholder="Message Sudaislofar... (Press Enter to send, Shift+Enter for new line)"
+                  className="min-h-[44px] max-h-32 resize-none bg-gray-800 border-gray-600 text-gray-100 placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 pr-12"
+                  rows={1}
+                />
+              </div>
               <Button 
                 onClick={sendMessage}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 font-medium transition-colors duration-200"
+                disabled={!currentMessage.trim() || isTyping}
+                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white p-3 rounded-lg transition-colors duration-200 glow-on-hover"
               >
-                Send
+                <Send size={18} />
               </Button>
             </div>
           </div>
