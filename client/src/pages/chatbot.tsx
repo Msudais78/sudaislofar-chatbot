@@ -119,6 +119,10 @@ export default function Chatbot() {
         {/* New Chat Button */}
         <div className="p-3">
           <Button 
+            onClick={() => {
+              setMessages([]);
+              setCurrentMessage('');
+            }}
             className="w-full flex items-center justify-center space-x-2 bg-transparent border border-gray-600 text-gray-300 hover:bg-gray-700 hover:border-gray-500 transition-colors duration-200 rounded-lg py-3"
           >
             <Plus size={16} />
@@ -126,19 +130,10 @@ export default function Chatbot() {
           </Button>
         </div>
         
-        {/* Chat History */}
-        <div className="flex-1 px-3 pb-3">
-          <div className="text-gray-400 text-xs font-medium mb-3 px-3">CHAT HISTORY</div>
-          <div className="space-y-2">
-            {['Previous conversation 1', 'Previous conversation 2', 'Previous conversation 3'].map((item, index) => (
-              <div 
-                key={index}
-                className="flex items-center space-x-2 p-2 text-gray-300 hover:bg-gray-700 rounded-lg cursor-pointer transition-colors duration-150"
-              >
-                <MessageSquare size={14} />
-                <span className="text-sm truncate">{item}</span>
-              </div>
-            ))}
+        {/* Sidebar Content */}
+        <div className="flex-1 flex items-center justify-center px-3 pb-3">
+          <div className="text-center text-gray-400 text-sm">
+            Start a new conversation with Sudaislofar
           </div>
         </div>
       </div>
